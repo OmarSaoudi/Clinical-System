@@ -43,11 +43,23 @@ Route::group(
 
     //################################ end dashboard admin #####################################
 
+    //################################ dashboard doctor ########################################
+      Route::get('/dashboard/doctor', function () {
+        return view('Dashboard.doctors.dashboard');
+    })->middleware(['auth:doctor'])->name('dashboard.doctor');
+
+    //################################ end dashboard doctor #####################################
+
     Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         //############################# sections route ##########################################
             Route::resource('sections', SectionController::class);
         //############################# end sections route ######################################
     });
+
+    Route::middleware(['auth:doctor'])->prefix('doctor')->group(function () {
+
+    });
+
 
     require __DIR__.'/auth.php';
 

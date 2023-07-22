@@ -21,7 +21,7 @@
   @yield('css')
 </head>
 
-<body class="hold-transition login-page" style="background-size: cover; background-image: url('{{ asset('Dashboard/assets/dist/login.jpg') }}')">
+<body class="hold-transition login-page" style="background-size: cover; background-image: url('{{ asset('Dashboard/assets/dist/img/login.jpg') }}')">
   @yield('content_auth')
 <!-- jQuery 3 -->
 <script src="{{ URL::asset('Dashboard/assets/bower_components/jquery/dist/jquery.min.js') }}"></script>
@@ -35,4 +35,11 @@
     $('input').iCheck({
       checkboxClass: 'icheckbox_square-blue',
       radioClass: 'iradio_square-blue',
-      increaseArea: '20%' /* o
+      increaseArea: '20%' /* optional */
+    });
+  });
+//   $('.form-login').validator();
+</script>
+@yield('scripts')
+</body>
+</html>
