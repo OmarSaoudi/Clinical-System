@@ -16,30 +16,55 @@ class SectionRepository implements SectionRepositoryInterface
 
     public function store($request) {
 
-        $section_data = [
-           'en' => ['name'       => $request->input('en_name'),],
-           'ar' => ['name'       => $request->input('ar_name'),],
-        ];
+        try {
+            $sections = new Section();
+            $sections->name = $request->name;
+            $sections->save();
+            return redirect()->route('sections.index');
+        }
 
-        Section::create($section_data);
+        catch (\Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
 
-        session()->flash('add');
-        return redirect()->route('sections.index');
+        // $sections = new Section();
+        // $sections->name = $request->name;
+        // $sections->save();
+        // // $section_data = [
+        // //    'en' => ['name'       => $request->input('en_name'),],
+        // //    'ar' => ['name'       => $request->input('ar_name'),],
+        // // ];
+        // // Section::create($section_data);
+        // session()->flash('add');
+        // return redirect()->route('sections.index');
     }
 
     public function update($request)
     {
-        $section = Section::findOrFail($request->id);
-        $section->update([
-            'en' => [
-                'name'       => $request->input('en_name'),
-            ],
-            'ar' => [
-                'name'       => $request->input('ar_name'),
-            ],
-        ]);
-        session()->flash('edit');
-        return redirect()->route('sections.index');
+
+        try {
+            $sections = Section::findOrFail($request->id);
+            $sections->update([
+            $sections->name = $request->name,
+          ]);
+          return redirect()->route('sections.index');
+        }
+        catch(\Exception $e) {
+          return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+
+
+        // $section = Section::findOrFail($request->id);
+        // $section->update([
+        //     'en' => [
+        //         'name'       => $request->input('en_name'),
+        //     ],
+        //     'ar' => [
+        //         'name'       => $request->input('ar_name'),
+        //     ],
+        // ]);
+        // session()->flash('edit');
+        // return redirect()->route('sections.index');
     }
 
 

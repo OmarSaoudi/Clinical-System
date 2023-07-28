@@ -7,11 +7,11 @@ use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Section extends Model implements TranslatableContract
+class Section extends Model
 {
-    use Translatable;
+    // use Translatable;
     use HasFactory;
-    public $translatedAttributes = ['name'];
+    // public $translatedAttributes = ['name'];
     protected $fillable = ['name'];
 
     public function doctor()

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\SectionController;
+use App\Http\Controllers\Dashboard\DoctorController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -52,8 +53,15 @@ Route::group(
 
     Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         //############################# sections route ##########################################
-            Route::resource('sections', SectionController::class);
+        Route::resource('sections', SectionController::class);
         //############################# end sections route ######################################
+
+        //############################# Doctors route ##########################################
+        Route::resource('doctors', DoctorController::class);
+        Route::post('delete_all_d', [DoctorController::class, 'delete_all_d'])->name('delete_all_d');
+        Route::post('update_password', [DoctorController::class, 'update_password'])->name('update_password');
+        Route::post('update_status', [DoctorController::class, 'update_status'])->name('update_status');
+        //############################# end Doctors route ######################################
     });
 
     Route::middleware(['auth:doctor'])->prefix('doctor')->group(function () {

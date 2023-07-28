@@ -19,6 +19,9 @@
             @if(\Auth::guard('admin')->check())
                @include('Dashboard.layouts.main-sidebar.admin-sidebar-main')
             @endif
+            @if(\Auth::guard('doctor')->check())
+               @include('Dashboard.layouts.main-sidebar.doctor-sidebar-main')
+            @endif
       </ul>
     </section>
     <!-- /.sidebar -->

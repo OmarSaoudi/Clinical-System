@@ -71,8 +71,10 @@
               <div class="pull-right">
                 @if(auth('web')->check())
                   <form method="POST" action="{{ route('logout.user') }}">
-                @else
+                @elseif(auth('admin')->check())
                   <form method="POST" action="{{ route('logout.admin') }}">
+                @else
+                  <form method="POST" action="{{ route('logout.doctor') }}">
                 @endif
                     @csrf
 

@@ -10,7 +10,7 @@ class Doctor extends Authenticatable
 {
     use HasFactory;
 
-    public $fillable= ['email','email_verified_at','password','phone','name','section_id','status'];
+    public $fillable= ['email','email_verified_at','password','phone','name','status'];
 
     public function section()
     {
