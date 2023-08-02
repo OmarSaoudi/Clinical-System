@@ -28,21 +28,21 @@
               <h3 class="box-title">Create Doctor</h3>
           </div>
             <div class="box-body">
-                    <form method="POST" action="{{ route('doctors.store') }}"  autocomplete="off" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('doctors.store') }}">
                       @csrf
                         {{-- 1 --}}
                         <div class="row">
                            <div class="col-md-6">
                               <div class="form-group">
                                  <label>Name</label>
-                                 <input type="text" name="name" class="form-control" required>
+                                 <input type="text" name="name" class="form-control">
                                  <span class="help-block with-errors"></span>
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
                                  <label>Phone</label>
-                                 <input type="text" name="phone" class="form-control" required>
+                                 <input type="text" name="phone" class="form-control">
                                  <span class="help-block with-errors"></span>
                               </div>
                             </div>
@@ -84,6 +84,20 @@
                             </div>
                         </div>
                         {{-- End 3 --}}
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Days</label>
+                                    <select name="day[]" class="form-control select2" multiple="multiple" data-placeholder="Select a Day" style="width: 100%;">
+                                       @forelse($days as $day)
+                                         <option value="{{ $day->id }}"> {{ $day->name }}</option>
+                                       @empty
+                                       @endforelse
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col-md-12">

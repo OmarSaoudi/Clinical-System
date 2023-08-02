@@ -29,21 +29,11 @@
       $('#example1').DataTable()
     })
 </script>
+<!-- Select2 -->
+<script src="{{ URL::asset('Dashboard/assets/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
 <script>
-    function CheckAll(className, elem) {
-       var elements = document.getElementsByClassName(className);
-       var l = elements.length;
-
-       if (elem.checked) {
-           for (var i = 0; i < l; i++) {
-               elements[i].checked = true;
-           }
-       } else {
-           for (var i = 0; i < l; i++) {
-               elements[i].checked = false;
-           }
-       }
-    }
+  $(function () {
+    $('.select2').select2()
+  })
 </script>
-
 @yield('scripts')

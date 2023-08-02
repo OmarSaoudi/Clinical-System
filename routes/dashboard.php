@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\AmbulanceController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\SectionController;
 use App\Http\Controllers\Dashboard\DoctorController;
@@ -58,9 +59,12 @@ Route::group(
 
         //############################# Doctors route ##########################################
         Route::resource('doctors', DoctorController::class);
-        Route::post('delete_all_d', [DoctorController::class, 'delete_all_d'])->name('delete_all_d');
         Route::post('update_password', [DoctorController::class, 'update_password'])->name('update_password');
         Route::post('update_status', [DoctorController::class, 'update_status'])->name('update_status');
+        //############################# end Doctors route ######################################
+
+        //############################# Doctors route ##########################################
+        Route::resource('ambulances', AmbulanceController::class);
         //############################# end Doctors route ######################################
     });
 

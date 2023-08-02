@@ -5,31 +5,28 @@ namespace App\Interfaces\Doctors;
 interface DoctorRepositoryInterface
 {
 
-      // get Doctor
-      public function index();
+    // get All Doctors
+    public function index();
 
-      // create Doctor
-      public function create();
+    // create Doctors
+    public function create();
 
-      // store Doctor
-      public function store($request);
+    // store Doctors
+    public function store($request);
 
-      // update Doctor
-      public function update($request);
+    // destroy Doctors
+    public function edit($id);
 
-      // destroy Doctor
-      public function destroy($request);
+    // update Doctor
+    public function update($request);
 
-      // destroy Doctor
-      public function edit($id);
+    // destroy Doctor
+    public function destroy($request);
 
-      // update_password
-      public function update_password($request);
+    // update_password
+    public function update_password($request);
 
-      // update_status
-      public function update_status($request);
-
-      // DeleteAllDoctors
-      public function delete_all_d($request);
+    // update_status
+    public function update_status($request);
 
 }

@@ -2,10 +2,11 @@
 namespace App\Repository\Doctors;
 
 use App\Interfaces\Doctors\DoctorRepositoryInterface;
+use App\Models\Appointment;
+use App\Models\Day;
 use App\Models\Doctor;
 use App\Models\Section;
 use App\Traits\UploadTrait;
-use App\Models\Image;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -23,41 +24,46 @@ class DoctorRepository implements DoctorRepositoryInterface
     public function create()
     {
         $sections = Section::all();
-        return view('Dashboard.doctors.add', compact('sections'));
+        $days = Day::all();
+        return view('Dashboard.doctors.add',compact('sections','days'));
     }
 
-    public function store($request){
+    public function store($request) {
 
         DB::beginTransaction();
 
         try {
-
             $doctors = new Doctor();
+            $doctors->name = $request->name;
             $doctors->email = $request->email;
             $doctors->password = Hash::make($request->password);
-            $doctors->section_id = $request->section_id;
             $doctors->phone = $request->phone;
+            $doctors->section_id = $request->section_id;
             $doctors->status = 1;
             $doctors->save();
 
-            // store trans
-            $doctors->name = $request->name;
-            $doctors->save();
+            // insert pivot tABLE
+            $doctors->day()->attach($request->day);
 
             //Upload img
             $this->verifyAndStoreImage($request,'photo','doctors','upload_image',$doctors->id,'App\Models\Doctor');
 
             DB::commit();
-            session()->flash('add');
-            return redirect()->route('doctors.create');
-
+            return redirect()->route('doctors.index');
         }
-        catch (\Exception $e) {
+
+        catch (\Exception $e){
             DB::rollback();
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
+    }
 
-
+    public function edit($id)
+    {
+        $sections = Section::all();
+        $days = Day::all();
+        $doctors = Doctor::findorfail($id);
+        return view('Dashboard.doctors.edit',compact('sections','days','doctors'));
     }
 
     public function update($request)
@@ -66,33 +72,16 @@ class DoctorRepository implements DoctorRepositoryInterface
 
         try {
 
-            $doctor = Doctor::findorfail($request->id);
-
-            $doctor->email = $request->email;
-            // $doctor->section_id = $request->section_id;
-            $doctor->phone = $request->phone;
-            $doctor->save();
-            // store trans
-            $doctor->name = $request->name;
-            $doctor->save();
-
-            // update pivot tABLE
-            // $doctor->doctorappointments()->sync($request->appointments);
-
-            // update photo
-            if ($request->has('photo')){
-                // Delete old photo
-                if ($doctor->image){
-                    $old_img = $doctor->image->filename;
-                    $this->Delete_attachment('upload_image','doctors/'.$old_img,$request->id);
-                }
-                //Upload img
-                $this->verifyAndStoreImage($request,'photo','doctors','upload_image',$request->id,'App\Models\Doctor');
-            }
+            $doctors = Doctor::findorfail($request->id);
+            $doctors->name = $request->name;
+            $doctors->email = $request->email;
+            $doctors->section_id = $request->section_id;
+            $doctors->phone = $request->phone;
+            $doctors->day()->sync($request->day);
+            $doctors->save();
 
             DB::commit();
-            session()->flash('edit');
-            return redirect()->back();
+            return redirect()->route('doctors.index');
 
         }
         catch (\Exception $e) {
@@ -103,45 +92,20 @@ class DoctorRepository implements DoctorRepositoryInterface
 
     public function destroy($request)
     {
-      if($request->page_id==1){
-
-       if($request->filename){
-
-         $this->Delete_attachment('upload_image','doctors/'.$request->filename,$request->id,$request->filename);
-       }
+      if($request->page_id==1)
+      {
           Doctor::destroy($request->id);
           session()->flash('delete');
           return redirect()->route('doctors.index');
       }
 
-
-      //---------------------------------------------------------------
-
-      else{
-
-          // delete selector doctor
+      else
+      {
           $delete_select_id = explode(",", $request->delete_select_id);
-          foreach ($delete_select_id as $ids_doctors){
-              $doctor = Doctor::findorfail($ids_doctors);
-              if($doctor->image){
-                  $this->Delete_attachment('upload_image','doctors/'.$doctor->image->filename,$ids_doctors,$doctor->image->filename);
-              }
-          }
-
           Doctor::destroy($delete_select_id);
-          session()->flash('delete');
           return redirect()->route('doctors.index');
       }
 
-    }
-
-
-    public function edit($id)
-    {
-        // $sections = Section::all();
-        // $appointments = Appointment::all();
-        $doctors = Doctor::findorfail($id);
-        return view('Dashboard.Doctors.edit', compact('doctors'));
     }
 
     public function update_password($request)
@@ -152,7 +116,6 @@ class DoctorRepository implements DoctorRepositoryInterface
                 'password'=>Hash::make($request->password)
             ]);
 
-            session()->flash('edit');
             return redirect()->back();
         }
 
@@ -169,20 +132,12 @@ class DoctorRepository implements DoctorRepositoryInterface
                 'status'=>$request->status
             ]);
 
-            session()->flash('edit');
             return redirect()->back();
         }
 
         catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
-    }
-
-    public function delete_all_d($request)
-    {
-        $delete_all_id = explode(",", $request->delete_all_id);
-        Doctor::whereIn('id', $delete_all_id)->delete();
-        return redirect()->route('doctors.index');
     }
 
 }

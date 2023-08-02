@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="{{ URL::asset('Dashboard/assets/bower_components/select2/dist/css/select2.min.css') }}">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 <link rel="stylesheet" href="{{ URL::asset('Dashboard/assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('Dashboard/assets/bower_components/select2/dist/css/select2.min.css') }}">
 
 @if (app()->getLocale() =='ar')
 <link rel="stylesheet" href="{{ URL::asset('Dashboard/assets/bower_components/font-awesome/css/font-awesome-rtl.min.css') }}">

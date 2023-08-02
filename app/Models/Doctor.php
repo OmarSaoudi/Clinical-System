@@ -22,4 +22,9 @@ class Doctor extends Authenticatable
         return $this->morphOne(Image::class, 'imageable');
     }
 
+    public function day()
+    {
+        return $this->belongsToMany(Day::class,'doctor_day');
+    }
+
 }

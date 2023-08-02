@@ -32,17 +32,18 @@
             <a href="{{ route('doctors.create') }}" class="btn btn-success"><i class="fa fa-plus"></i> Add</a>
             <button type="button" class="btn btn-danger" id="btn_delete_all"><i class="fa fa-trash"></i> Delete All</button>
           <!-- /.box-header -->
-          <div class="box-body" id="datatable">
+          <div class="box-body">
             <table id="example1" class="table table-bordered table-striped">
               <thead>
               <tr>
-                <th><input type="checkbox" name="select_all" id="example-select-all" onclick="CheckAll('box1', this)"></th>
+                <th><input name="select_all" id="example-select-all" type="checkbox"/></th>
                 <th>#</th>
                 <th>Name</th>
                 <th>Image</th>
                 <th>Email</th>
                 <th>Section</th>
                 <th>Phone</th>
+                <th>Day</th>
                 <th>Status</th>
                 <th>Created at</th>
                 <th>Operation</th>
@@ -51,7 +52,9 @@
               <tbody>
               @foreach($doctors as $doctor)
               <tr>
-                <td><input type="checkbox"  value="{{ $doctor->id }}" class="box1"></td>
+                <td>
+                    <input type="checkbox" name="delete_select" value="{{ $doctor->id }}" class="delete_select">
+                </td>
                 <td>{{ $loop->index + 1 }}</td>
                 <td>{{ $doctor->name }}</td>
                 <td>
@@ -68,16 +71,21 @@
                 <td>{{ $doctor->section->name }}</td>
                 <td>{{ $doctor->phone }}</td>
                 <td>
+                    {{ $doctor->day->pluck('name')->join(', ') }}
+                </td>
+                <td>
                     {{ $doctor->status == 1 ? 'Active' : 'Inactive' }}
                 </td>
                 <td>{{ $doctor->created_at->diffForHumans() }}</td>
                 <td>
+                    <a href="{{ route('doctors.edit', $doctor->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
                     <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#update_status{{ $doctor->id }}"><i class="fa fa-wrench"></i></a>
-                    <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#update_password{{ $doctor->id }}"><i class="fa fa-key"></i></a>
+                    <a class="btn btn-info btn-sm" data-toggle="modal" data-target="#update_password{{ $doctor->id }}"><i class="fa fa-key"></i></a>
                     <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete{{ $doctor->id }}"><i class="fa fa-trash"></i></a>
                 </td>
               </tr>
               @include('Dashboard.doctors.delete')
+              @include('Dashboard.doctors.delete_select')
               @include('Dashboard.doctors.update_password')
               @include('Dashboard.doctors.update_status')
               @endforeach
@@ -95,52 +103,34 @@
   <!-- /.content -->
 </div>
 
-<!-- Delete All -->
-<div class="modal fade" id="delete_all_d">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-              <h4 class="modal-title" style="text-align: center">Delete All Doctors</h4>
-        </div>
-        <div class="modal-body">
-          <form action="{{ route('delete_all_d') }}" method="POST">
-                    {{ csrf_field() }}
-                    <div class="modal-body">
-                        <p>Are sure of the deleting process ?</p><br>
-                        <input class="text" type="hidden" id="delete_all_id" name="delete_all_id" value=''>
-                    </div>
-
-                    <div class="modal-footer">
-                         <button type="submit" class="btn btn-danger">Save changes</button>
-                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    </div>
-          </form>
-        </div>
-      </div>
-    </div>
-</div>
-<!-- End Delete All -->
 
 @endsection
 
 
 @section('scripts')
-<script type="text/javascript">
+<script>
     $(function() {
-       $("#btn_delete_all").click(function() {
-           var selected = new Array();
-           $("#datatable input[type=checkbox]:checked").each(function() {
-               selected.push(this.value);
-           });
+        jQuery("[name=select_all]").click(function(source) {
+            checkboxes = jQuery("[name=delete_select]");
+            for(var i in checkboxes){
+                checkboxes[i].checked = source.target.checked;
+            }
+        });
+    })
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#btn_delete_all").click(function () {
+            var selected = [];
+            $("#example input[name=delete_select]:checked").each(function () {
+                selected.push(this.value);
+            });
 
-           if (selected.length > 0) {
-               $('#delete_all_d').modal('show')
-               $('input[id="delete_all_id"]').val(selected);
-           }
-       });
+            if (selected.length > 0) {
+                $('#delete_select').modal('show')
+                $('input[id="delete_select_id"]').val(selected);
+            }
+        });
     });
 </script>
 @endsection

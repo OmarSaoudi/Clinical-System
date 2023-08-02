@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Image extends Model
+class Day extends Model
 {
     use HasFactory;
 
-    public $fillable= ['filename','imageable_id','imageable_type'];
+    public $fillable= ['name'];
 
-    public function imageable()
+    public function doctor()
     {
-        return $this->morphTo();
+        return $this->belongsToMany(Doctor::class,'doctor_day');
     }
 }
