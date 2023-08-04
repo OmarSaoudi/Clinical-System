@@ -6,30 +6,25 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-              <h4 class="modal-title" style="text-align: center">Add Section</h4>
+              <h4 class="modal-title" style="text-align: center">Add Service</h4>
         </div>
         <div class="modal-body">
-          <form action="{{ route('doctors.store') }}" method="post" autocomplete="off">
+          <form action="{{ route('services.store') }}" method="post" autocomplete="off">
               @csrf
 
               <div class="form-group">
-                <label>Name</label>
-                <input type="text" name="name" id="name" class="form-control">
+                <label>Section Name</label>
+                <input type="text" name="name" value="{{ old('notes') }}" class="form-control">
               </div>
 
               <div class="form-group">
-                <label>Phone</label>
-                <input type="text" name="phone" id="phone" class="form-control">
+                <label>Price</label>
+                <input type="number" name="price" value="{{ old('notes') }}" class="form-control">
               </div>
 
               <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="email" id="email" class="form-control">
-              </div>
-
-              <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" id="password" class="form-control">
+                <label>Description</label>
+                <textarea name="description" value="{{ old('description') }}" class="form-control" placeholder="Enter ..."></textarea>
               </div>
 
               <div class="modal-footer">

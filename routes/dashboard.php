@@ -4,6 +4,8 @@ use App\Http\Controllers\Dashboard\AmbulanceController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\SectionController;
 use App\Http\Controllers\Dashboard\DoctorController;
+use App\Http\Controllers\Dashboard\InsuranceController;
+use App\Http\Controllers\Dashboard\SingleServiceController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -66,6 +68,15 @@ Route::group(
         //############################# Doctors route ##########################################
         Route::resource('ambulances', AmbulanceController::class);
         //############################# end Doctors route ######################################
+
+        //############################# SingleService route ##########################################
+        Route::resource('services', SingleServiceController::class);
+        //############################# end SingleService route ######################################
+
+        //############################# Insurance route ##########################################
+        Route::resource('insurances', InsuranceController::class);
+        //############################# end Insurance route ######################################
+
     });
 
     Route::middleware(['auth:doctor'])->prefix('doctor')->group(function () {
