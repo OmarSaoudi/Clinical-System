@@ -22,6 +22,9 @@
             @if(\Auth::guard('doctor')->check())
                @include('Dashboard.layouts.main-sidebar.doctor-sidebar-main')
             @endif
+            @if(\Auth::guard('patient')->check())
+               @include('Dashboard.layouts.main-sidebar.patient-sidebar-main')
+            @endif
       </ul>
     </section>
     <!-- /.sidebar -->

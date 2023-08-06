@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AdminController;
 use App\Http\Controllers\Auth\DoctorController;
+use App\Http\Controllers\Auth\PatientController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -42,6 +43,14 @@ Route::post('/logout/admin', [AdminController::class, 'destroy'])->middleware('a
 Route::post('/login/doctor', [DoctorController::class, 'store'])->middleware('guest')->name('login.doctor');
 
 Route::post('/logout/doctor', [DoctorController::class, 'destroy'])->middleware('auth:doctor')->name('logout.doctor');
+
+//#############################################################################################
+
+//################################## Route Patient ##############################################
+
+Route::post('/login/patient', [PatientController::class, 'store'])->middleware('guest')->name('login.patient');
+
+Route::post('/logout/patient', [PatientController::class, 'destroy'])->middleware('auth:patient')->name('logout.patient');
 
 //#############################################################################################
 

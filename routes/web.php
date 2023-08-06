@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\Website\WebsiteController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -26,5 +26,7 @@ Route::group(
     Route::get('/', function () {
         return view('welcome');
     });
+
+    // Route::get('/', [WebsiteController::class, 'index']);
 
 });

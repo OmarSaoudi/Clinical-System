@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Doctor extends Authenticatable
@@ -17,7 +18,7 @@ class Doctor extends Authenticatable
         return $this->belongsTo(Section::class);
     }
 
-    public function image()
+    public function image(): MorphOne
     {
         return $this->morphOne(Image::class, 'imageable');
     }

@@ -21,7 +21,7 @@
                 <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" required>
             </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-info">Save changes</button>
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
           </div>
         </form>

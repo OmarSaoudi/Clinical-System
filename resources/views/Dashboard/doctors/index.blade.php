@@ -85,7 +85,6 @@
                 </td>
               </tr>
               @include('Dashboard.doctors.delete')
-              @include('Dashboard.doctors.delete_select')
               @include('Dashboard.doctors.update_password')
               @include('Dashboard.doctors.update_status')
               @endforeach

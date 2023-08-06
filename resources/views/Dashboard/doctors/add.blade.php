@@ -35,14 +35,14 @@
                            <div class="col-md-6">
                               <div class="form-group">
                                  <label>Name</label>
-                                 <input type="text" name="name" class="form-control">
+                                 <input type="text" name="name" value="{{ old('name') }}" class="form-control">
                                  <span class="help-block with-errors"></span>
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
                                  <label>Phone</label>
-                                 <input type="text" name="phone" class="form-control">
+                                 <input type="text" name="phone" value="{{ old('phone') }}" class="form-control">
                                  <span class="help-block with-errors"></span>
                               </div>
                             </div>
@@ -54,14 +54,14 @@
                           <div class="col-md-6">
                             <div class="form-group">
                                <label>Email</label>
-                               <input type="email" name="email" class="form-control" required>
+                               <input type="email" name="email" value="{{ old('email') }}" class="form-control" required>
                                <span class="help-block with-errors"></span>
                             </div>
                           </div>
                            <div class="col-md-6">
                               <div class="form-group">
                                 <label>Password</label>
-                                <input type="password" class="form-control" name="password" required>
+                                <input type="password" class="form-control" value="{{ old('password') }}" name="password" required>
                                 <span class="help-block with-errors"></span>
                               </div>
                             </div>
@@ -73,7 +73,7 @@
                             <div class="col-md-12">
                               <div class="form-group">
                                  <label>Sections</label>
-                                 <select name="section_id" class="form-control" required>
+                                 <select name="section_id" class="form-control"  required>
                                     <option value="" selected disabled>Select Section</option>
                                     @foreach ($sections as $section)
                                         <option value="{{ $section->id }}"> {{ $section->name }}</option>

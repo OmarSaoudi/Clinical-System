@@ -73,11 +73,12 @@
                   <form method="POST" action="{{ route('logout.user') }}">
                 @elseif(auth('admin')->check())
                   <form method="POST" action="{{ route('logout.admin') }}">
-                @else
+                @elseif(auth('doctor')->check())
                   <form method="POST" action="{{ route('logout.doctor') }}">
+                @else
+                   <form method="POST" action="{{ route('logout.patient') }}">
                 @endif
                     @csrf
-
                     <a href="#" class="btn btn-default btn-flat" onclick="event.preventDefault(); this.closest('form').submit();">Log Out</a>
                   </form>
               </div>

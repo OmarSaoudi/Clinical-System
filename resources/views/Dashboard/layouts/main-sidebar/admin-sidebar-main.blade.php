@@ -6,5 +6,6 @@
 <li><a href="{{ route('ambulances.index') }}"><i class="fa fa-ambulance"></i> <span>Ambulances</span></a></li>
 <li><a href="{{ route('services.index') }}"><i class="fa fa-square"></i> <span>Services</span></a></li>
 <li><a href="{{ route('insurances.index') }}"><i class="fa fa-medkit"></i> <span>Insurances</span></a></li>
+<li><a href="{{ route('patients.index') }}"><i class="fa fa-medkit"></i> <span>Patients</span></a></li>
 
 

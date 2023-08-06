@@ -23,6 +23,9 @@ class RouteServiceProvider extends ServiceProvider
 
     public const Doctor = '/dashboard/doctor';
 
+    public const Patient = '/dashboard/patient';
+
+
 
 
     /**

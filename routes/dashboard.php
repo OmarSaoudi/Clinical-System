@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\SectionController;
 use App\Http\Controllers\Dashboard\DoctorController;
 use App\Http\Controllers\Dashboard\InsuranceController;
+use App\Http\Controllers\Dashboard\PatientController;
 use App\Http\Controllers\Dashboard\SingleServiceController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -44,15 +45,19 @@ Route::group(
     Route::get('/dashboard/admin', function () {
         return view('Dashboard.admins.dashboard');
     })->middleware(['auth:admin'])->name('dashboard.admin');
-
     //################################ end dashboard admin #####################################
 
     //################################ dashboard doctor ########################################
       Route::get('/dashboard/doctor', function () {
         return view('Dashboard.doctors.dashboard');
     })->middleware(['auth:doctor'])->name('dashboard.doctor');
-
     //################################ end dashboard doctor #####################################
+
+    //################################ dashboard patient ########################################
+    Route::get('/dashboard/patient', function () {
+        return view('Dashboard.patients.dashboard');
+    })->middleware(['auth:patient'])->name('dashboard.patient');
+    //################################ end dashboard patient #####################################
 
     Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         //############################# sections route ##########################################
@@ -76,6 +81,12 @@ Route::group(
         //############################# Insurance route ##########################################
         Route::resource('insurances', InsuranceController::class);
         //############################# end Insurance route ######################################
+
+        //############################# patients route ##########################################
+        Route::resource('patients', PatientController::class);
+        Route::post('update_password', [PatientController::class, 'update_password'])->name('update_password');
+        Route::post('update_status', [PatientController::class, 'update_status'])->name('update_status');
+        //############################# end patients route ######################################
 
     });
 
