@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreDoctorsRequest extends FormRequest
+class StoreDoctorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,7 @@ class StoreDoctorsRequest extends FormRequest
             "password" => 'required|sometimes',
             "phone" => 'required|numeric|unique:doctors,phone,' . $this->id,
             "name" => 'required|regex:/^[A-Za-z0-9-أ-ي-pL\s\-]+$/u',
-            // "appointments" => 'required',
-            // "section_id" => 'required',
+            "section_id" => 'required',
         ];
     }
 }

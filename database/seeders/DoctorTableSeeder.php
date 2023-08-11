@@ -14,13 +14,6 @@ class DoctorTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Doctor::factory()->count(1)->create();
-
-        // DB::table('doctors')->delete();
-        // DB::table('doctors')->insert([
-        //     'name' => 'Doctor',
-        //     'email' => 'doctor@gmail.com',
-        //     'password' => bcrypt('1'),
-        // ]);
+        Doctor::factory()->count(10)->create();
     }
 }

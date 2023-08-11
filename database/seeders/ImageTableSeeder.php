@@ -13,6 +13,6 @@ class ImageTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Image::factory()->count(1)->create();
+        Image::factory()->count(10)->create();
     }
 }

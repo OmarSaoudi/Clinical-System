@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreAmbulanceRequest;
 use App\Interfaces\Ambulances\AmbulanceRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,7 @@ class AmbulanceController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(StoreAmbulanceRequest $request)
     {
         return $this->Ambulance->store($request);
     }

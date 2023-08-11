@@ -4,8 +4,6 @@ namespace App\Traits;
 
 use App\Models\Image;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-
 use Illuminate\Support\Facades\Storage;
 
 trait UploadTrait{
@@ -14,14 +12,8 @@ trait UploadTrait{
 
         if( $request->hasFile( $inputname ) ) {
 
-            // Check img
-            if (!$request->file($inputname)->isValid()) {
-                flash('Invalid Image!')->error()->important();
-                return redirect()->back()->withInput();
-            }
-
             $photo = $request->file($inputname);
-            $name = Str::slug($request->input('name'));
+            $name = \Str::slug($request->input('name'));
             $filename = $name. '.' . $photo->getClientOriginalExtension();
 
             // insert Image

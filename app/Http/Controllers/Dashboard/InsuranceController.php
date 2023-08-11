@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreInsuranceRequest;
 use App\Interfaces\Insurances\InsuranceRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,7 @@ class InsuranceController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(StoreInsuranceRequest $request)
     {
         return $this->Insurance->store($request);
     }
