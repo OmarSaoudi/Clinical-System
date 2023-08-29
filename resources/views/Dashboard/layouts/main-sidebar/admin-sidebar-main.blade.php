@@ -7,5 +7,5 @@
 <li><a href="{{ route('services.index') }}"><i class="fa fa-square"></i> <span>Services</span></a></li>
 <li><a href="{{ route('insurances.index') }}"><i class="fa fa-medkit"></i> <span>Insurances</span></a></li>
 <li><a href="{{ route('patients.index') }}"><i class="fa fa-medkit"></i> <span>Patients</span></a></li>
-
+<li><a href="{{ route('single_invoices') }}"><i class=""></i> <span>single_invoices</span></a></li>
 

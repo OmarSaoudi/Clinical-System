@@ -88,6 +88,11 @@ Route::group(
         Route::post('update_status', [PatientController::class, 'update_status'])->name('update_status');
         //############################# end patients route ######################################
 
+        //############################# single_invoices route ##########################################
+        Route::view('single_invoices','livewire.single_invoices.index')->name('single_invoices');
+        Route::view('Print_single_invoices','livewire.single_invoices.print')->name('Print_single_invoices');
+        //############################# end single_invoices route ######################################
+
     });
 
     Route::middleware(['auth:doctor'])->prefix('doctor')->group(function () {

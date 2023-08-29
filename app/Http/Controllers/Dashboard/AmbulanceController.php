@@ -29,7 +29,7 @@ class AmbulanceController extends Controller
     }
 
 
-    public function store(StoreAmbulanceRequest $request)
+    public function store(Request $request)
     {
         return $this->Ambulance->store($request);
     }
